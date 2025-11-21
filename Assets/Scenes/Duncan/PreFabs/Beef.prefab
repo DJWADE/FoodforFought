@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 7073325864198415234}
   - component: {fileID: 1676620397184327669}
   - component: {fileID: 1395019206039443017}
+  - component: {fileID: 7671435222595391820}
   m_Layer: 0
   m_Name: Beef
   m_TagString: Untagged
@@ -207,3 +208,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 10
   m_CollisionDetection: 0
+--- !u!114 &7671435222595391820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843427526706266332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3eb3e58aea7b2a458fbe547d978c134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

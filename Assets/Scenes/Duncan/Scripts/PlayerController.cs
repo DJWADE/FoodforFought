@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerController2_5D : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 6f;
     public float jumpForce = 7f;
 
     [Header("Ground Check")]
@@ -63,7 +62,7 @@ public class PlayerController2_5D : MonoBehaviour
     void Move()
     {
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y).normalized;
-        Vector3 velocity = move * moveSpeed;
+        Vector3 velocity = move * StatsManager.Instance.moveSpeed;
         Vector3 newVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
 
         rb.linearVelocity = newVelocity;

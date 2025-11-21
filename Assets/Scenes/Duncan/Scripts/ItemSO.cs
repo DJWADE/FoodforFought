@@ -1,5 +1,6 @@
 using UnityEngine;
 using static ItemSO;
+using static Unity.VisualScripting.Member;
 
 [CreateAssetMenu]
 public class ItemSO : ScriptableObject
@@ -10,6 +11,8 @@ public class ItemSO : ScriptableObject
 
     public AttributeToChange attributeToChange = new AttributeToChange();
     public int amountToChangeAttribute;
+   
+
 
     public bool UseItem()
     {
@@ -40,6 +43,6 @@ public class ItemSO : ScriptableObject
         none,
         strength,
         defense,
-        agility
+        speed
     };
 }

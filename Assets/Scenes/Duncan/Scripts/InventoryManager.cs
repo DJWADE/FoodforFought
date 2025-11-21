@@ -5,8 +5,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryMenu;
     private bool menuActivated;
     public itemSlot[] itemSlot;
-
     public ItemSO[] itemSOs;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
