@@ -1,46 +1,86 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class PlayerController2_5D : MonoBehaviour
 {
-    public Rigidbody theRB;
-    public float moveSpeed, jumpForce;
+    [Header("Movement Settings")]
+    public float moveSpeed = 6f;
+    public float jumpForce = 7f;
+
+    [Header("Ground Check")]
+    public Transform groundCheck;
+    public float groundDistance = 0.2f;
+    public LayerMask groundMask;
+
+    private Rigidbody rb;
+    private bool isGrounded;
 
     private Vector2 moveInput;
 
-    public LayerMask whatIsGround;
-    public Transform groundPoint;
-    private bool isGrounded;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        moveInput.x = Input.GetAxis("Horizontal");
-        moveInput.y = Input.GetAxis("Vertical");
-        moveInput.Normalize();
+        // Ground check
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        Debug.Log($"Grounded: {isGrounded}");
 
-        theRB.angularVelocity = new Vector3(moveInput.x * moveSpeed, theRB.linearVelocity.y, moveInput.y * moveSpeed);
-
-        RaycastHit hit;
-        if (Physics.Raycast(groundPoint.position, Vector3.down, out hit, .3f, whatIsGround))
+        // Input
+        if (Input.GetButtonDown("Jump"))
         {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
+            Debug.Log("Jump button pressed");
         }
 
-        if(Input.GetButtonDown("Jump")  && isGrounded) 
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.y = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            theRB.angularVelocity += new Vector3(0f, jumpForce, 0F);
+            Jump();
         }
-    
-    
+    }
+
+    void FixedUpdate()
+    {
+        Move();
+
+        if (rb.linearVelocity.y > 0)
+        {
+            rb.AddForce(Physics.gravity * 2f, ForceMode.Acceleration);
+        }
+        else if (rb.linearVelocity.y < 0)
+        {
+            rb.AddForce(Physics.gravity * 5f, ForceMode.Acceleration);
+        }
+    }
+
+
+
+    void Move()
+    {
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+        Vector3 velocity = move * moveSpeed;
+        Vector3 newVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
+
+        rb.linearVelocity = newVelocity;
+    }
+
+    void Jump()
+    {
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
+        }
     }
 }
