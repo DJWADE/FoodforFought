@@ -20,7 +20,7 @@ public class ItemSO : ScriptableObject
         if (statToChange == StatToChange.health)
         {
             Health playerHealth = GameObject.Find("Player").GetComponent<Health>();
-            if(playerHealth.health == playerHealth.maxHealth)
+            if(playerHealth.health >= playerHealth.maxHealth)
             {
                 return false;
             }

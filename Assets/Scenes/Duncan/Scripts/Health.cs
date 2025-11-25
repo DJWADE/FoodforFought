@@ -34,6 +34,10 @@ public class Health : MonoBehaviour
     public void ChangeHealth(int amount)
     {
         StatsManager.Instance.health += amount;
+        if(StatsManager.Instance.health > StatsManager.Instance.maxHealth) 
+        {
+            StatsManager.Instance.health = StatsManager.Instance.maxHealth;
+        }
         slider.value = StatsManager.Instance.health;
     }
 
