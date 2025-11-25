@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Egg
   statToChange: 1
   amountToChangeStat: 1
-  attributeToChange: 0
+  attributeToChange: 3
   amountToChangeAttribute: 0
